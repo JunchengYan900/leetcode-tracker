@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LeetCode Tracker</title>
+</head>
+<body>
+    <h1>LeetCode Tracker</h1>
+<h2>Stats</h2>
+<p>Total Problems: {{ total }}</p>
+<p>Completed: {{ completed }}</p>
+<p>Easy: {{ easy }}</p>
+<p>Medium: {{ medium }}</p>
+<p>Hard: {{ hard }}</p>
+<hr>
+    <form action="/add" method="POST">
+        <input type="text" name="title" placeholder="Problem title" required>
+
+        <select name="difficulty">
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+        </select>
+
+        <button type="submit">Add Problem</button>
+    </form>
+
+    <hr>
+
+    <h2>Problem List</h2>
+
+    {% for problem in problems %}
+        <div>
+            <strong>{{ problem.title }}</strong>
+            - {{ problem.difficulty }}
+
+            {% if problem.completed == 1 %}
+                ✅ Completed
+            {% else %}
+                ❌ Not Completed
+                <a href="/complete/{{ problem.id }}">Mark Complete</a>
+            {% endif %}
+
+            <a href="/delete/{{ problem.id }}">Delete</a>
+        </div>
+    {% endfor %}
+</body>
+</html>
